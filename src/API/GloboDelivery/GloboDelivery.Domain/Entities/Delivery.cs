@@ -7,5 +7,7 @@
         public DateTime ArrivalDate { get; set; }
         public bool IsAvailable { get; set; }
         public int VanInfoId { get; set; }
+
+        public VanInfo VanInfo { get; set; } = null!;
     }
 }
