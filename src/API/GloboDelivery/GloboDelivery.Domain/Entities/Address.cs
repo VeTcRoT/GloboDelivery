@@ -8,5 +8,8 @@
         public string AddressLine { get; set; } = string.Empty;
         public int SuiteNumber { get; set; }
         public string PostalCode { get; set; } = string.Empty;
+
+        public ICollection<DeliveryAddress> DeliveryAddresses { get; set; } 
+            = new List<DeliveryAddress>();
     }
 }

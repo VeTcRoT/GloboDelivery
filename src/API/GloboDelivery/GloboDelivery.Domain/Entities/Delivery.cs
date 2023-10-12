@@ -9,5 +9,7 @@
         public int VanInfoId { get; set; }
 
         public VanInfo VanInfo { get; set; } = null!;
+        public ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
+            = new List<DeliveryAddress>();
     }
 }
