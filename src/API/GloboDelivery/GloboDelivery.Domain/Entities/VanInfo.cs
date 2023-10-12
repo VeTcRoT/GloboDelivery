@@ -9,5 +9,7 @@
         public decimal Capacity { get; set; }
         public DateTime LastInspectionDate { get; set; }
         public string? Remarks { get; set; }
+
+        public ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
     }
 }
