@@ -7,7 +7,7 @@ namespace GloboDelivery.Domain.Interfaces
     {
         Task<T?> GetByIdAsync(int id);
         Task<IReadOnlyCollection<T>> ListAllAsync();
-        void CreateAsync(T entity);
+        Task CreateAsync(T entity);
         void Delete(T entity);
     }
 }
