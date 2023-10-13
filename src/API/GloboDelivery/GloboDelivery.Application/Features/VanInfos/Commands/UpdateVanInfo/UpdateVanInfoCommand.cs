@@ -4,6 +4,7 @@ namespace GloboDelivery.Application.Features.VanInfos.Commands.UpdateVanInfo
 {
     public class UpdateVanInfoCommand : IRequest
     {
+        public int Id { get; set; }
         public string Mark { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public int Year { get; set; }
