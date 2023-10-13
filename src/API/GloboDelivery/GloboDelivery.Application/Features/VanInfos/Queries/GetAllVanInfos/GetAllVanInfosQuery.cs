@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.VanInfos.Queries.GetAllVanInfos
 {
-    public class GetAllVanInfosQuery : IRequest<List<VanInfoDto>>
+    public class GetAllVanInfosQuery : IRequest<IReadOnlyList<VanInfoDto>>
     {
     }
 }
