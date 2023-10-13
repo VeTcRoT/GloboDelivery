@@ -1,6 +1,6 @@
-﻿namespace GloboDelivery.Application.Features.VanInfos.Queries.GetVanInfoById
+﻿namespace GloboDelivery.Domain.Dtos
 {
-    public class GetVanInfoByIdDto
+    public class VanInfoDto
     {
         public int Id { get; set; }
         public string Mark { get; set; } = string.Empty;
