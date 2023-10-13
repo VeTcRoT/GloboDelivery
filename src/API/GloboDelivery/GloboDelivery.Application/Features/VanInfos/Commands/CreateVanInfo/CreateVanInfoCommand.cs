@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using GloboDelivery.Domain.Dtos;
+using MediatR;
 
 namespace GloboDelivery.Application.Features.VanInfos.Commands.CreateVanInfo
 {
-    public class CreateVanInfoCommand : IRequest<CreateVanInfoDto>
+    public class CreateVanInfoCommand : IRequest<VanInfoDto>
     {
         public string Mark { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;

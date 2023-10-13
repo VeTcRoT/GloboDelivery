@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 using MediatR;
@@ -7,7 +8,7 @@ using ValidationException = GloboDelivery.Application.Exceptions.ValidationExcep
 
 namespace GloboDelivery.Application.Features.VanInfos.Commands.CreateVanInfo
 {
-    public class CreateVanInfoCommandHandler : IRequestHandler<CreateVanInfoCommand, CreateVanInfoDto>
+    public class CreateVanInfoCommandHandler : IRequestHandler<CreateVanInfoCommand, VanInfoDto>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -20,7 +21,7 @@ namespace GloboDelivery.Application.Features.VanInfos.Commands.CreateVanInfo
             _validator = validator;
         }
 
-        public async Task<CreateVanInfoDto> Handle(CreateVanInfoCommand request, CancellationToken cancellationToken)
+        public async Task<VanInfoDto> Handle(CreateVanInfoCommand request, CancellationToken cancellationToken)
         {
             var validationResult = await _validator.ValidateAsync(request, cancellationToken);
 
@@ -33,7 +34,7 @@ namespace GloboDelivery.Application.Features.VanInfos.Commands.CreateVanInfo
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _mapper.Map<CreateVanInfoDto>(vanInfoToAdd);
+            return _mapper.Map<VanInfoDto>(vanInfoToAdd);
         }
     }
 }
