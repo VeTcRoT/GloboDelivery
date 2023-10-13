@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GloboDelivery.Application.Features.VanInfos.Commands.CreateVanInfo;
+using GloboDelivery.Application.Features.VanInfos.Commands.UpdateVanInfo;
 using GloboDelivery.Domain.Entities;
 
 namespace GloboDelivery.Application.MappingProfiles
@@ -10,6 +11,7 @@ namespace GloboDelivery.Application.MappingProfiles
         {
             CreateMap<CreateVanInfoCommand, VanInfo>();
             CreateMap<VanInfo, CreateVanInfoDto>();
+            CreateMap<VanInfo, UpdateVanInfoCommand>();
         }
     }
 }
