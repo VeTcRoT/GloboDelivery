@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace GloboDelivery.Application.Features.Addresses.CreateAddress
+namespace GloboDelivery.Application.Features.Addresses.Commands.CreateAddress
 {
     public class CreateAddressCommandValidator : AbstractValidator<CreateAddressCommand>
     {
