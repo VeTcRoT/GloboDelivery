@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.Addresses.Queries.GetAllAddresses
 {
-    public class GetAllAddressesQuery : IRequest<List<AddressDto>>
+    public class GetAllAddressesQuery : IRequest<IReadOnlyList<AddressDto>>
     {
     }
 }
