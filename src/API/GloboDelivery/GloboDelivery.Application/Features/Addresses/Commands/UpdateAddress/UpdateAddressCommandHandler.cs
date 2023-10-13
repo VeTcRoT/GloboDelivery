@@ -6,7 +6,7 @@ using GloboDelivery.Domain.Interfaces;
 using MediatR;
 using ValidationException = GloboDelivery.Application.Exceptions.ValidationException;
 
-namespace GloboDelivery.Application.Features.Addresses.UpdateAddress
+namespace GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress
 {
     public class UpdateAddressCommandHandler : IRequestHandler<UpdateAddressCommand>
     {

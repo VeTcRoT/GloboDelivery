@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using GloboDelivery.Application.Features.Addresses.CreateAddress;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Dtos;
-using GloboDelivery.Application.Features.Addresses.UpdateAddress;
+using GloboDelivery.Application.Features.Addresses.Commands.CreateAddress;
+using GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress;
 
 namespace GloboDelivery.Application.MappingProfiles
 {

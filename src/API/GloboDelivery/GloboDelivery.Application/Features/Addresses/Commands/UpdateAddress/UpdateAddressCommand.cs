@@ -1,10 +1,10 @@
-﻿using GloboDelivery.Domain.Dtos;
-using MediatR;
+﻿using MediatR;
 
-namespace GloboDelivery.Application.Features.Addresses.CreateAddress
+namespace GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress
 {
-    public class CreateAddressCommand : IRequest<AddressDto>
+    public class UpdateAddressCommand : IRequest
     {
+        public int Id { get; set; }
         public string Country { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string AdministrativeArea { get; set; } = string.Empty;

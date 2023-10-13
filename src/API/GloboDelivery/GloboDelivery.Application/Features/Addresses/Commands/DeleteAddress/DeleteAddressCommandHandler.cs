@@ -3,7 +3,7 @@ using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 using MediatR;
 
-namespace GloboDelivery.Application.Features.Addresses.DeleteAddress
+namespace GloboDelivery.Application.Features.Addresses.Commands.DeleteAddress
 {
     public class DeleteAddressCommandHandler : IRequestHandler<DeleteAddressCommand>
     {

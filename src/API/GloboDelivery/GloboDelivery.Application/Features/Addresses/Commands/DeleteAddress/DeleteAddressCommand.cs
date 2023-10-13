@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace GloboDelivery.Application.Features.Addresses.DeleteAddress
+namespace GloboDelivery.Application.Features.Addresses.Commands.DeleteAddress
 {
     public class DeleteAddressCommand : IRequest
     {
