@@ -2,6 +2,7 @@
 using GloboDelivery.Application.Features.Addresses.CreateAddress;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Dtos;
+using GloboDelivery.Application.Features.Addresses.UpdateAddress;
 
 namespace GloboDelivery.Application.MappingProfiles
 {
@@ -11,6 +12,7 @@ namespace GloboDelivery.Application.MappingProfiles
         {
             CreateMap<CreateAddressCommand, Address>();
             CreateMap<Address, AddressDto>();
+            CreateMap<UpdateAddressCommand, Address>();
         }
     }
 }
