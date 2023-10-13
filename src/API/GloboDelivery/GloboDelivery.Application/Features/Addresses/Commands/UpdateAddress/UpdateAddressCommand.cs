@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace GloboDelivery.Application.Features.Addresses.UpdateAddress
+namespace GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress
 {
     public class UpdateAddressCommand : IRequest
     {
