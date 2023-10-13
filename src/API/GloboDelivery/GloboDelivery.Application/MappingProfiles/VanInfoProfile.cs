@@ -11,7 +11,7 @@ namespace GloboDelivery.Application.MappingProfiles
         public VanInfoProfile()
         {
             CreateMap<CreateVanInfoCommand, VanInfo>();
-            CreateMap<VanInfo, CreateVanInfoDto>();
+            CreateMap<VanInfo, VanInfoDto>();
             CreateMap<VanInfo, UpdateVanInfoCommand>();
             CreateMap<VanInfo, VanInfoDto>();
         }
