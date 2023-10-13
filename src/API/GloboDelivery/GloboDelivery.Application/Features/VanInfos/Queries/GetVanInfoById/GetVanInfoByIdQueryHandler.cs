@@ -7,18 +7,18 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.VanInfos.Queries.GetVanInfoById
 {
-    public class GetVanInfoByIdCommandHandler : IRequestHandler<GetVanInfoByIdCommand, VanInfoDto>
+    public class GetVanInfoByIdQueryHandler : IRequestHandler<GetVanInfoByIdQuery, VanInfoDto>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetVanInfoByIdCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public GetVanInfoByIdQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<VanInfoDto> Handle(GetVanInfoByIdCommand request, CancellationToken cancellationToken)
+        public async Task<VanInfoDto> Handle(GetVanInfoByIdQuery request, CancellationToken cancellationToken)
         {
             var vanInfo = await _unitOfWork.Repository<VanInfo>().GetByIdAsync(request.Id);
 

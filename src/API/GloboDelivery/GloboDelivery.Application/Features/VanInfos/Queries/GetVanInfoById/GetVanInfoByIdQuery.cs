@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.VanInfos.Queries.GetVanInfoById
 {
-    public class GetVanInfoByIdCommand : IRequest<VanInfoDto>
+    public class GetVanInfoByIdQuery : IRequest<VanInfoDto>
     {
         public int Id { get; set; }
     }
