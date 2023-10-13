@@ -21,7 +21,7 @@ namespace GloboDelivery.Application.Features.VanInfos.Queries.GetAllVanInfos
         {
             var vanInfos = await _unitOfWork.Repository<VanInfo>().ListAllAsync();
 
-            return _mapper.Map<VanInfoDto>(vanInfos);
+            return _mapper.Map<List<VanInfoDto>>(vanInfos);
         }
     }
 }
