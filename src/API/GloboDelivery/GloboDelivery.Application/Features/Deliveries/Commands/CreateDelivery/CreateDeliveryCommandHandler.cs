@@ -7,7 +7,7 @@ using GloboDelivery.Domain.Interfaces;
 using MediatR;
 using ValidationException = GloboDelivery.Application.Exceptions.ValidationException;
 
-namespace GloboDelivery.Application.Features.Deliveries.Commands
+namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 {
     public class CreateDeliveryCommandhandler : IRequestHandler<CreateDeliveryCommand, DeliveryDto>
     {
@@ -43,9 +43,9 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands
 
             var deliveryToAdd = _mapper.Map<Delivery>(request);
 
-            #pragma warning disable CS8601 // Possible null reference assignment.
+#pragma warning disable CS8601 // Possible null reference assignment.
             deliveryToAdd.VanInfo = await _unitOfWork.Repository<VanInfo>().GetByIdAsync(request.VanInfoId);
-            #pragma warning restore CS8601 // Possible null reference assignment.
+#pragma warning restore CS8601 // Possible null reference assignment.
 
             await _unitOfWork.Repository<Delivery>().CreateAsync(deliveryToAdd);
 
@@ -65,7 +65,7 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands
             await _unitOfWork.SaveChangesAsync();
 
             var deliveryToReturn = _mapper.Map<DeliveryDto>(deliveryToAdd);
-            deliveryToReturn.Addresses =  _mapper.Map<IReadOnlyList<AddressDto>>(addresses);
+            deliveryToReturn.Addresses = _mapper.Map<IReadOnlyList<AddressDto>>(addresses);
 
             return deliveryToReturn;
         }

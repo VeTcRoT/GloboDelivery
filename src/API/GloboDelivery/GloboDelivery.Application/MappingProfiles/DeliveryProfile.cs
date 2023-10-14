@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GloboDelivery.Application.Features.Deliveries.Commands;
+using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
 using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
 

@@ -1,7 +1,7 @@
 ﻿using GloboDelivery.Domain.Dtos;
 using MediatR;
 
-namespace GloboDelivery.Application.Features.Deliveries.Commands
+namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 {
     public class CreateDeliveryCommand : IRequest<DeliveryDto>
     {

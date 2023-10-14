@@ -3,7 +3,7 @@ using GloboDelivery.Application.Exceptions;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 
-namespace GloboDelivery.Application.Features.Deliveries.Commands
+namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 {
     public class CreateDeliveryCommandValidator : AbstractValidator<CreateDeliveryCommand>
     {
