@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
+using GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery;
 using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
 
@@ -11,6 +12,7 @@ namespace GloboDelivery.Application.MappingProfiles
         {
             CreateMap<CreateDeliveryCommand, Delivery>();
             CreateMap<Delivery, DeliveryDto>();
+            CreateMap<UpdateDeliveryCommand, Delivery>();
         }
     }
 }

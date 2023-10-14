@@ -3,12 +3,12 @@ using GloboDelivery.Application.Exceptions;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 
-namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
+namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
 {
-    public class CreateDeliveryCommandValidator : AbstractValidator<CreateDeliveryCommand>
+    public class UpdateDeliveryCommandValidator : AbstractValidator<UpdateDeliveryCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CreateDeliveryCommandValidator(IUnitOfWork unitOfWork)
+        public UpdateDeliveryCommandValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
@@ -29,12 +29,12 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
                 .MustAsync(CapacityTakenLessOrEqualToVanCapacity).WithMessage("CapacityTaken should be less or equal to Capacity of Van.");
         }
 
-        private bool ArrivalDateGreaterThanDepartureDate(CreateDeliveryCommand command)
+        private bool ArrivalDateGreaterThanDepartureDate(UpdateDeliveryCommand command)
         {
             return command.ArrivalDate > command.DepartureDate;
         }
 
-        private async Task<bool> CapacityTakenLessOrEqualToVanCapacity(CreateDeliveryCommand command, CancellationToken cancellationToken)
+        private async Task<bool> CapacityTakenLessOrEqualToVanCapacity(UpdateDeliveryCommand command, CancellationToken cancellationToken)
         {
             var van = await _unitOfWork.Repository<VanInfo>().GetByIdAsync(command.VanInfoId);
 
