@@ -2,6 +2,7 @@
 {
     public class DeliveryDto
     {
+        public int Id { get; set; }
         public decimal Price { get; set; }
         public DateTime DepartureDate { get; set; }
         public DateTime ArrivalDate { get; set; }
