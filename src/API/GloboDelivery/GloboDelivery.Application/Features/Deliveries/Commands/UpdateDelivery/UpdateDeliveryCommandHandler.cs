@@ -55,6 +55,8 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
             DeleteDeliveryAddresses(deliveryToUpdate, deliveryAddressRepo);
             await CreateDeliveryAddressesAsync(deliveryToUpdate, addresses, deliveryAddressRepo);
 
+            _mapper.Map(request, deliveryToUpdate);
+
             await _unitOfWork.SaveChangesAsync();
         }
 
