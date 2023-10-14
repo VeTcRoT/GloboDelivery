@@ -21,6 +21,9 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
             RuleFor(d => d.DepartureDate)
                 .GreaterThanOrEqualTo(DateTime.Now).WithMessage("{PropertyName} should be greater or equal to " + DateTime.Now);
 
+            RuleFor(d => d.AddressesIds)
+                .Must(ai => ai.Count() <= 5).WithMessage("{PropertyName} should not exceed a maximum length of 5 elements.");
+
             RuleFor(d => d)
                 .Must(ArrivalDateGreaterThanDepartureDate).WithMessage("ArrivalDate should be greater than DepartureDate.")
                 .MustAsync(CapacityTakenLessOrEqualToVanCapacity).WithMessage("CapacityTaken should be less or equal to Capacity of Van.");
