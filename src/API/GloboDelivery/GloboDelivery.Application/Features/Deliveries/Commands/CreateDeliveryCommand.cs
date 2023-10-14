@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using GloboDelivery.Domain.Dtos;
+using MediatR;
 
 namespace GloboDelivery.Application.Features.Deliveries.Commands
 {
-    public class CreateDeliveryCommand : IRequest
+    public class CreateDeliveryCommand : IRequest<DeliveryDto>
     {
         public decimal Price { get; set; }
         public DateTime DepartureDate { get; set; }
