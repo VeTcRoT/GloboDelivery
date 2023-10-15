@@ -10,6 +10,13 @@ namespace GloboDelivery.Persistence.Data.EntityTypeConfigurations
         {
             builder.HasKey(a => a.Id);
 
+            builder.Property(a => a.Country).HasMaxLength(20).IsRequired();
+            builder.Property(a => a.City).HasMaxLength(20).IsRequired();
+            builder.Property(a => a.AdministrativeArea).HasMaxLength(20).IsRequired();
+            builder.Property(a => a.AddressLine).HasMaxLength(45).IsRequired();
+            builder.Property(a => a.PostalCode).HasMaxLength(25).IsRequired();
+            builder.Property(a => a.SuiteNumber).IsRequired();
+
             builder.HasMany(a => a.DeliveryAddresses)
                 .WithOne(da => da.Address)
                 .HasForeignKey(da => da.AddressId)
