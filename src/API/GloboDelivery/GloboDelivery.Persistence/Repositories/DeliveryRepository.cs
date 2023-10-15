@@ -13,5 +13,11 @@ namespace GloboDelivery.Persistence.Repositories
         {
             return await _dbSet.Include(d => d.DeliveryAddresses).Where(d => d.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task<IReadOnlyList<Address>?> GetDeliveryAddressesAsync(int id)
+        {
+            var deliveries = await _dbSet.Where(d => d.Id == id).Include(d => d.DeliveryAddresses).ThenInclude(da => da.Address).FirstOrDefaultAsync();
+            return deliveries?.DeliveryAddresses.Select(da => da.Address).ToList();
+        }
     }
 }
