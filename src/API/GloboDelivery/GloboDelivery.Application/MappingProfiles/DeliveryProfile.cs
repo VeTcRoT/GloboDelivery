@@ -11,9 +11,9 @@ namespace GloboDelivery.Application.MappingProfiles
         public DeliveryProfile()
         {
             CreateMap<CreateDeliveryCommand, Delivery>();
-            CreateMap<Delivery, DeliveryDto>();
+            CreateMap<Delivery, CreateDeliveryDto>();
             CreateMap<UpdateDeliveryCommand, Delivery>();
-            CreateMap<Delivery, DeliveryListingDto>();
+            CreateMap<Delivery, DeliveryDto>();
         }
     }
 }

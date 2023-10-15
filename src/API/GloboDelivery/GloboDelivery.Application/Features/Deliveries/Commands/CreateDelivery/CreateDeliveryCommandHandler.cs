@@ -9,7 +9,7 @@ using ValidationException = GloboDelivery.Application.Exceptions.ValidationExcep
 
 namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 {
-    public class CreateDeliveryCommandhandler : IRequestHandler<CreateDeliveryCommand, DeliveryDto>
+    public class CreateDeliveryCommandhandler : IRequestHandler<CreateDeliveryCommand, CreateDeliveryDto>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,7 +22,7 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
             _validator = validator;
         }
 
-        public async Task<DeliveryDto> Handle(CreateDeliveryCommand request, CancellationToken cancellationToken)
+        public async Task<CreateDeliveryDto> Handle(CreateDeliveryCommand request, CancellationToken cancellationToken)
         {
             var validationResult = await _validator.ValidateAsync(request);
 
@@ -64,7 +64,7 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 
             await _unitOfWork.SaveChangesAsync();
 
-            var deliveryToReturn = _mapper.Map<DeliveryDto>(deliveryToAdd);
+            var deliveryToReturn = _mapper.Map<CreateDeliveryDto>(deliveryToAdd);
             deliveryToReturn.Addresses = _mapper.Map<IReadOnlyList<AddressDto>>(addresses);
 
             return deliveryToReturn;

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.Deliveries.Queries.GetDeliveryById
 {
-    public class GetDeliveryByIdQueryHandler : IRequestHandler<GetDeliveryByIdQuery, DeliveryListingDto>
+    public class GetDeliveryByIdQueryHandler : IRequestHandler<GetDeliveryByIdQuery, DeliveryDto>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -18,14 +18,14 @@ namespace GloboDelivery.Application.Features.Deliveries.Queries.GetDeliveryById
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<DeliveryListingDto> Handle(GetDeliveryByIdQuery request, CancellationToken cancellationToken)
+        public async Task<DeliveryDto> Handle(GetDeliveryByIdQuery request, CancellationToken cancellationToken)
         {
             var delivery = await _unitOfWork.DeliveryRepository.GetByIdAsync(request.Id);
 
             if (delivery == null)
                 throw new NotFoundException(nameof(Delivery), request.Id);
 
-            return _mapper.Map<DeliveryListingDto>(delivery);
+            return _mapper.Map<DeliveryDto>(delivery);
         }
     }
 }

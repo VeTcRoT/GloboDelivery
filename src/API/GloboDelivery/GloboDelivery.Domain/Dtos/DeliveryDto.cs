@@ -8,7 +8,5 @@
         public DateTime ArrivalDate { get; set; }
         public bool IsAvailable { get; set; }
         public decimal CapacityTaken { get; set; }
-        public VanInfoDto VanInfo { get; set; } = null!;
-        public IReadOnlyList<AddressDto> Addresses { get; set; } = null!;
     }
 }
