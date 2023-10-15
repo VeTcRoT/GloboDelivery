@@ -32,6 +32,8 @@ namespace GloboDelivery.Application.Features.Addresses.Commands.CreateAddress
 
             await _unitOfWork.Repository<Address>().CreateAsync(addressToAdd);
 
+            await _unitOfWork.SaveChangesAsync();
+
             return _mapper.Map<AddressDto>(addressToAdd);
         }
     }

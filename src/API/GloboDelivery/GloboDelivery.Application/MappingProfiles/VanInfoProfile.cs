@@ -12,7 +12,7 @@ namespace GloboDelivery.Application.MappingProfiles
         {
             CreateMap<CreateVanInfoCommand, VanInfo>();
             CreateMap<VanInfo, VanInfoDto>();
-            CreateMap<VanInfo, UpdateVanInfoCommand>();
+            CreateMap<UpdateVanInfoCommand, VanInfo>();
         }
     }
 }
