@@ -50,7 +50,8 @@ namespace GloboDelivery.API.Middlewares
                     problemDetails.Status = StatusCodes.Status422UnprocessableEntity;
                     context.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
                     problemDetails.Title = "Validation error";
-                    problemDetails.Extensions["validationErrors"] = validationException.ValidationErrors;
+                    problemDetails.Detail = "One or more validation errors occurred.";
+                    problemDetails.Extensions["errors"] = validationException.ValidationErrors;
                     break;
             }
 
