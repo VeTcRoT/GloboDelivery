@@ -1,4 +1,5 @@
-﻿using GloboDelivery.Application;
+﻿using GloboDelivery.API.Middlewares;
+using GloboDelivery.Application;
 using GloboDelivery.Persistence;
 using GloboDelivery.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ namespace GloboDelivery.API
             }
 
             app.UseRouting();
+
+            app.UseCustomExceptionHandler();
 
             app.MapControllers();
 
