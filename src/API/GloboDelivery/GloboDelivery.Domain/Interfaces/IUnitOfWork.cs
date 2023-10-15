@@ -6,7 +6,7 @@ namespace GloboDelivery.Domain.Interfaces
     {
         IAddressRepository AddressRepository { get; }
         IDeliveryRepository DeliveryRepository { get; }
-        IBaseRepository<T> Repository<T>() where T : BaseEntity;
+        IBaseRepository<T>? Repository<T>() where T : BaseEntity;
         Task<int> SaveChangesAsync();
     }
 }
