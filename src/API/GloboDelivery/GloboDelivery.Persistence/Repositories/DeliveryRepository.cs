@@ -19,5 +19,10 @@ namespace GloboDelivery.Persistence.Repositories
             var deliveries = await _dbSet.Where(d => d.Id == id).Include(d => d.DeliveryAddresses).ThenInclude(da => da.Address).FirstOrDefaultAsync();
             return deliveries?.DeliveryAddresses.Select(da => da.Address).ToList();
         }
+
+        public async Task<VanInfo?> GetDeliveryVanInfoAsync(int id)
+        {
+            return await _dbSet.Where(d => d.Id == id).Include(d => d.VanInfo).Select(d => d.VanInfo).FirstOrDefaultAsync();
+        }
     }
 }

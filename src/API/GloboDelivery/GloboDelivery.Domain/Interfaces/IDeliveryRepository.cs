@@ -6,5 +6,6 @@ namespace GloboDelivery.Domain.Interfaces
     {
         Task<Delivery?> GetByIdWithDeliveryAddressesAsync(int id);
         Task<IReadOnlyList<Address>?> GetDeliveryAddressesAsync(int id);
+        Task<VanInfo?> GetDeliveryVanInfoAsync(int id);
     }
 }
