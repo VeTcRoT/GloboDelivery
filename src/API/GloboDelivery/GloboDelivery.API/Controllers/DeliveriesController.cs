@@ -1,11 +1,14 @@
-﻿using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
+﻿using GloboDelivery.API.Helpers;
+using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
 using GloboDelivery.Application.Features.Deliveries.Commands.DeleteDelivery;
 using GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery;
 using GloboDelivery.Application.Features.Deliveries.Queries.GetAllDeliveries;
 using GloboDelivery.Application.Features.Deliveries.Queries.GetDeliveryById;
 using GloboDelivery.Domain.Dtos;
+using GloboDelivery.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace GloboDelivery.API.Controllers
 {
@@ -20,10 +23,13 @@ namespace GloboDelivery.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<DeliveryDto>>> GetAllDeliveries()
+        [HttpGet(Name = nameof(GetAllDeliveries))]
+        public async Task<ActionResult<IReadOnlyList<DeliveryDto>>> GetAllDeliveries(int pageNumber, int pageSize)
         {
-            var deliveries = await _mediator.Send(new GetAllDeliveriesQuery());
+            var deliveries = await _mediator.Send(new GetAllDeliveriesQuery() { PageNumber = pageNumber, PageSize = pageSize });
+
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(deliveries, Url, nameof(GetAllDeliveries))));
 
             return Ok(deliveries);
         }
