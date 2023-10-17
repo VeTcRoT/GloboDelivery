@@ -1,8 +1,6 @@
 ﻿using GloboDelivery.API.Middlewares;
 using GloboDelivery.Application;
 using GloboDelivery.Persistence;
-using GloboDelivery.Persistence.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace GloboDelivery.API
 {
@@ -13,12 +11,7 @@ namespace GloboDelivery.API
             builder.Services.AddControllers();
 
             builder.Services.AddApplicationServices();
-            builder.Services.AddPersistenceServices();
-
-            builder.Services.AddDbContext<GloboDeliveryDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
+            builder.Services.AddPersistenceServices(builder.Configuration);
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
