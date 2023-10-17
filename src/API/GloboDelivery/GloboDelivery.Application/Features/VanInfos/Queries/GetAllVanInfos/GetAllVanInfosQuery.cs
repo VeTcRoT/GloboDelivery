@@ -1,9 +1,11 @@
-﻿using GloboDelivery.Domain.Dtos;
+﻿using GloboDelivery.Application.Models;
+using GloboDelivery.Domain.Dtos;
+using GloboDelivery.Domain.Helpers;
 using MediatR;
 
 namespace GloboDelivery.Application.Features.VanInfos.Queries.GetAllVanInfos
 {
-    public class GetAllVanInfosQuery : IRequest<IReadOnlyList<VanInfoDto>>
+    public class GetAllVanInfosQuery : PaginationModel, IRequest<PagedList<VanInfoDto>>
     {
     }
 }

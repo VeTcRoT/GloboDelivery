@@ -1,4 +1,5 @@
 ﻿using GloboDelivery.Domain.Entities;
+using GloboDelivery.Domain.Helpers;
 using GloboDelivery.Domain.Interfaces;
 using GloboDelivery.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,10 @@ namespace GloboDelivery.Persistence.Repositories
             return await _dbSet.Include(d => d.DeliveryAddresses).Where(d => d.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IReadOnlyList<Address>?> GetDeliveryAddressesAsync(int id)
+        public async Task<PagedList<Address>?> GetPagedDeliveryAddressesAsync(int id, int pageNumber, int pageSize)
         {
-            var deliveries = await _dbSet.Where(d => d.Id == id).Include(d => d.DeliveryAddresses).ThenInclude(da => da.Address).FirstOrDefaultAsync();
-            return deliveries?.DeliveryAddresses.Select(da => da.Address).ToList();
+            var addresses =  _dbSet.Where(d => d.Id == id).SelectMany(d => d.DeliveryAddresses).Select(da => da.Address);
+            return await PagedList<Address>.CreateAsync(addresses, pageNumber, pageSize);
         }
 
         public async Task<VanInfo?> GetDeliveryVanInfoAsync(int id)
