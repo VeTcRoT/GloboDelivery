@@ -20,6 +20,8 @@ namespace GloboDelivery.API
         }
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
+            app.UseCustomExceptionHandler();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -27,8 +29,6 @@ namespace GloboDelivery.API
             }
 
             app.UseRouting();
-
-            app.UseCustomExceptionHandler();
 
             app.MapControllers();
 
