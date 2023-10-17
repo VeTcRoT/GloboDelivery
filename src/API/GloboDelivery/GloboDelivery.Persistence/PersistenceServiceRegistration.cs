@@ -1,4 +1,5 @@
 ﻿using GloboDelivery.Domain.Interfaces;
+using GloboDelivery.Persistence.Models;
 using GloboDelivery.Persistence.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,8 @@ namespace GloboDelivery.Persistence
 
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+
+            services.AddScoped(typeof(Lazy<>), typeof(LazyInstance<>));
 
             return services;
         }
