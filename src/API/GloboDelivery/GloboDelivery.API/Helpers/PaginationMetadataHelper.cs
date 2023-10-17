@@ -6,6 +6,13 @@ namespace GloboDelivery.API.Helpers
 {
     public static class PaginationMetadataHelper
     {
+        private enum ResourceUriType
+        {
+            PreviousPage,
+            NextPage,
+            Current
+        }
+
         public static PaginationMetadata CreatePaginationMetadata<T>(PagedList<T> entities, IUrlHelper urlHelper, string actionName)
         {
             return new PaginationMetadata
@@ -48,11 +55,5 @@ namespace GloboDelivery.API.Helpers
                     });
             }
         }
-    }
-    internal enum ResourceUriType
-    {
-        PreviousPage,
-        NextPage,
-        Current
     }
 }
