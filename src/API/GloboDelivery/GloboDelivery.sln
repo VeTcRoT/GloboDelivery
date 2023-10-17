@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{62200130-D4E5-4405-8E42-0A9254ADD1E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboDelivery.Domain", "GloboDelivery.Domain\GloboDelivery.Domain.csproj", "{6F17A5B0-2132-41A0-9804-9AE55B8E73A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboDelivery.Domain", "GloboDelivery.Domain\GloboDelivery.Domain.csproj", "{6F17A5B0-2132-41A0-9804-9AE55B8E73A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboDelivery.Application", "GloboDelivery.Application\GloboDelivery.Application.csproj", "{913216CA-2B68-4235-BF51-AE4EBE19C826}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboDelivery.Application", "GloboDelivery.Application\GloboDelivery.Application.csproj", "{913216CA-2B68-4235-BF51-AE4EBE19C826}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboDelivery.Persistence", "GloboDelivery.Persistence\GloboDelivery.Persistence.csproj", "{79E53E1D-3452-4870-9031-9017636B0D06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboDelivery.Persistence", "GloboDelivery.Persistence\GloboDelivery.Persistence.csproj", "{79E53E1D-3452-4870-9031-9017636B0D06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboDelivery.API", "GloboDelivery.API\GloboDelivery.API.csproj", "{8BF29770-967D-4669-A314-18943AFA9F19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboDelivery.API", "GloboDelivery.API\GloboDelivery.API.csproj", "{8BF29770-967D-4669-A314-18943AFA9F19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
