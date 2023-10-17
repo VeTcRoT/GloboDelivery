@@ -1,7 +1,9 @@
-﻿using GloboDelivery.Application.Features.Addresses.Queries.GetDeliveryAddresses;
+﻿using GloboDelivery.API.Helpers;
+using GloboDelivery.Application.Features.Addresses.Queries.GetDeliveryAddresses;
 using GloboDelivery.Domain.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace GloboDelivery.API.Controllers
 {
@@ -16,10 +18,13 @@ namespace GloboDelivery.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<AddressDto>>> GetDeliveryAddresses([FromRoute] GetDeliveryAddressesQuery query)
+        [HttpGet(Name = nameof(GetDeliveryAddresses))]
+        public async Task<ActionResult<IReadOnlyList<AddressDto>>> GetDeliveryAddresses([FromRoute] int DeliveryId, int pageNumber, int pageSize)
         {
-            var addresses = await _mediator.Send(query);
+            var addresses = await _mediator.Send(new GetDeliveryAddressesQuery() { DeliveryId = DeliveryId, PageNumber = pageNumber, PageSize = pageSize });
+
+            Response.Headers.Add("X-Pagination", 
+                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(addresses, Url, nameof(GetDeliveryAddresses))));
 
             return Ok(addresses);
         }
