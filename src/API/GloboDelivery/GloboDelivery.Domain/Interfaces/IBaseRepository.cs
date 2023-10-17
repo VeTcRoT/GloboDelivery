@@ -1,4 +1,5 @@
 ﻿using GloboDelivery.Domain.Entities;
+using GloboDelivery.Domain.Helpers;
 
 namespace GloboDelivery.Domain.Interfaces
 {
@@ -7,6 +8,7 @@ namespace GloboDelivery.Domain.Interfaces
     {
         Task<T?> GetByIdAsync(int id);
         Task<IReadOnlyCollection<T>> ListAllAsync();
+        Task<PagedList<T>> ListPagedAsync(int pageNumber, int pageSize);
         Task CreateAsync(T entity);
         void Delete(T entity);
     }
