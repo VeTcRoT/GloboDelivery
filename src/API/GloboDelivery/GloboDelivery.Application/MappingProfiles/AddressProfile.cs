@@ -3,6 +3,7 @@ using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Application.Features.Addresses.Commands.CreateAddress;
 using GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress;
+using GloboDelivery.Domain.Helpers;
 
 namespace GloboDelivery.Application.MappingProfiles
 {
@@ -13,6 +14,9 @@ namespace GloboDelivery.Application.MappingProfiles
             CreateMap<CreateAddressCommand, Address>();
             CreateMap<Address, AddressDto>();
             CreateMap<UpdateAddressCommand, Address>();
+
+            CreateMap<PagedList<Address>, PagedList<AddressDto>>()
+                .ConvertUsing<PagedListConverter<Address, AddressDto>>();
         }
     }
 }
