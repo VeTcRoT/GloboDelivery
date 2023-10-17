@@ -7,20 +7,22 @@ namespace GloboDelivery.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public IAddressRepository AddressRepository { get; }
-        public IDeliveryRepository DeliveryRepository { get; }
+        public IAddressRepository AddressRepository { get => _addressRepository.Value; }
+        public IDeliveryRepository DeliveryRepository { get => _deliveryRepository.Value; }
 
+        private readonly Lazy<IAddressRepository> _addressRepository;
+        private readonly Lazy<IDeliveryRepository> _deliveryRepository;
         private readonly GloboDeliveryDbContext _dbContext;
         private readonly IServiceProvider _serviceProvider;
 
         public UnitOfWork(
-            IAddressRepository addressRepository, 
-            IDeliveryRepository deliveryRepository, 
+            Lazy<IAddressRepository> addressRepository, 
+            Lazy<IDeliveryRepository> deliveryRepository, 
             GloboDeliveryDbContext dbContext, 
             IServiceProvider serviceProvider)
         {
-            AddressRepository = addressRepository;
-            DeliveryRepository = deliveryRepository;
+            _addressRepository = addressRepository;
+            _deliveryRepository = deliveryRepository;
             _dbContext = dbContext;
             _serviceProvider = serviceProvider;
         }
