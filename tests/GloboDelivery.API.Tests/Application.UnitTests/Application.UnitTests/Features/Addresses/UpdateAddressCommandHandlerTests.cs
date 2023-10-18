@@ -98,7 +98,7 @@ namespace Application.UnitTests.Features.Addresses
         }
 
         [Fact]
-        public async Task Handle_InvokeWithNotFoundAddress_NotFoundExxceptionOccures()
+        public async Task Handle_InvokeWithNotFoundAddress_NotFoundExceptionOccures()
         {
             //Arrange
             _validationResultMock.Setup(v => v.IsValid).Returns(true);
