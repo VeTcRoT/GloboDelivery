@@ -6,7 +6,7 @@ using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 using Moq;
 
-namespace Application.UnitTests.Features.Addresses
+namespace Application.UnitTests.Features.Addresses.Commands
 {
     public class DeleteAddressCommandHandlerTests
     {

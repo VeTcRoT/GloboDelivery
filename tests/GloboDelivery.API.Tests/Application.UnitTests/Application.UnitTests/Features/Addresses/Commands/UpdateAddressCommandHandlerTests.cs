@@ -9,7 +9,7 @@ using GloboDelivery.Domain.Interfaces;
 using Moq;
 using ValidationException = GloboDelivery.Application.Exceptions.ValidationException;
 
-namespace Application.UnitTests.Features.Addresses
+namespace Application.UnitTests.Features.Addresses.Commands
 {
     public class UpdateAddressCommandHandlerTests
     {
