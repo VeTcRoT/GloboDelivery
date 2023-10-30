@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace GloboDelivery.Persistence.Models
+namespace GloboDelivery.Common.Models
 {
     public class LazyInstance<T> : Lazy<T>
     {

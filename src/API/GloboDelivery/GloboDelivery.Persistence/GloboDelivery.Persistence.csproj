@@ -20,4 +20,10 @@
     <ProjectReference Include="..\GloboDelivery.Application\GloboDelivery.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="GloboDelivery.Common">
+      <HintPath>..\..\..\Shared\GloboDelivery.Shared\GloboDelivery.Common\bin\Debug\net6.0\GloboDelivery.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

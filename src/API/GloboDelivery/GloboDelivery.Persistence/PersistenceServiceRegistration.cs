@@ -1,6 +1,6 @@
-﻿using GloboDelivery.Domain.Interfaces;
+﻿using GloboDelivery.Common.Models;
+using GloboDelivery.Domain.Interfaces;
 using GloboDelivery.Persistence.Data;
-using GloboDelivery.Persistence.Models;
 using GloboDelivery.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
