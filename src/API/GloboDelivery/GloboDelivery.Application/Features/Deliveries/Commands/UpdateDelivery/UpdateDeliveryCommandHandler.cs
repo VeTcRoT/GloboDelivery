@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GloboDelivery.Application.Exceptions;
+using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 using MediatR;
@@ -43,9 +44,11 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
                 deliveryToUpdate.VanInfo = vanInfo;
             }
 
-            var addresses = await _unitOfWork.AddressRepository.GetAddressesByIdsAsync(request.AddressesIds);
+            var addressesIds = request.AddressesDates.Select(ad => ad.AddressId);
 
-            var notFoundIds = request.AddressesIds.Except(addresses.Select(a => a.Id)).ToList();
+            var addresses = await _unitOfWork.AddressRepository.GetAddressesByIdsAsync(addressesIds);
+
+            var notFoundIds = addressesIds.Except(addresses.Select(a => a.Id)).ToList();
 
             if (notFoundIds.Any())
                 throw new NotFoundException(nameof(Address), string.Join(", ", notFoundIds));
@@ -53,7 +56,7 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
             var deliveryAddressRepo = _unitOfWork.Repository<DeliveryAddress>();
 
             DeleteDeliveryAddresses(deliveryToUpdate, deliveryAddressRepo);
-            await CreateDeliveryAddressesAsync(deliveryToUpdate, addresses, deliveryAddressRepo);
+            await CreateDeliveryAddressesAsync(deliveryToUpdate, addresses, request.AddressesDates, deliveryAddressRepo);
 
             _mapper.Map(request, deliveryToUpdate);
 
@@ -66,14 +69,18 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
                 deliveryAddressRepo.Delete(deliveryAddress);
         }
 
-        private async Task CreateDeliveryAddressesAsync(Delivery deliveryToUpdate, IEnumerable<Address> addresses, IBaseRepository<DeliveryAddress> deliveryAddressRepo)
+        private async Task CreateDeliveryAddressesAsync(Delivery deliveryToUpdate, IEnumerable<Address> addresses, IEnumerable<DeliveryAddressManipulationDto> deliveryAddresses, IBaseRepository<DeliveryAddress> deliveryAddressRepo)
         {
             foreach (var address in addresses)
             {
+                var deliveryAddressFromCommand = deliveryAddresses.Where(da => da.AddressId == address.Id).First();
+
                 await deliveryAddressRepo.CreateAsync(new DeliveryAddress
                 {
                     Delivery = deliveryToUpdate,
-                    Address = address
+                    Address = address,
+                    DepartureDate = deliveryAddressFromCommand.DepartureDate,
+                    ArrivalDate = deliveryAddressFromCommand.ArrivalDate
                 });
             }
         }

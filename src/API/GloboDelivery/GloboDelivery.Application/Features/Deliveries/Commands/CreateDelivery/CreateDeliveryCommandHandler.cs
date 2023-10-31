@@ -29,12 +29,13 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult);
 
-            var addresses = await _unitOfWork.AddressRepository.GetAddressesByIdsAsync(request.AddressesIds);
+            var addressIds = request.AddressesDates.Select(ad => ad.AddressId);
 
+            var addresses = await _unitOfWork.AddressRepository.GetAddressesByIdsAsync(addressIds);
             if (addresses == null)
-                throw new NotFoundException(nameof(Address), string.Join(", ", request.AddressesIds));
+                throw new NotFoundException(nameof(Address), string.Join(", ", addressIds));
 
-            var notFoundIds = request.AddressesIds
+            var notFoundIds = addressIds
                 .Where(id => !addresses.Where(a => a.Id == id).Any())
                 .Select(id => id).ToList();
 
@@ -51,13 +52,20 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 
             var deliveryAddressRepo = _unitOfWork.Repository<DeliveryAddress>();
 
+            var deliveryAddresses = new List<DeliveryAddress>();
             foreach (var address in addresses)
             {
+                var addressFromCommand = request.AddressesDates.Where(ad => ad.AddressId == address.Id).First();
+
                 var deliveryAddress = new DeliveryAddress
                 {
                     Delivery = deliveryToAdd,
-                    Address = address
+                    Address = address,
+                    DepartureDate = addressFromCommand.DepartureDate,
+                    ArrivalDate = addressFromCommand.ArrivalDate
                 };
+
+                deliveryAddresses.Add(deliveryAddress);
 
                 await deliveryAddressRepo.CreateAsync(deliveryAddress);
             }
@@ -65,7 +73,14 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
             await _unitOfWork.SaveChangesAsync();
 
             var deliveryToReturn = _mapper.Map<CreateDeliveryDto>(deliveryToAdd);
-            deliveryToReturn.Addresses = _mapper.Map<IReadOnlyList<AddressDto>>(addresses);
+            deliveryToReturn.Addresses = _mapper.Map<IReadOnlyList<DeliveryAddressListingDto>>(addresses);
+
+            foreach (var address in deliveryToReturn.Addresses)
+            {
+                var addressFromCommand = request.AddressesDates.Where(ad => ad.AddressId == address.Id).First();
+                address.DepartureDate = addressFromCommand.DepartureDate;
+                address.ArrivalDate = addressFromCommand.ArrivalDate;
+            }
 
             return deliveryToReturn;
         }

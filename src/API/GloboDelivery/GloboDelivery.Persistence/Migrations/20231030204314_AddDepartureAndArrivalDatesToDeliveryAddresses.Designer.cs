@@ -4,6 +4,7 @@ using GloboDelivery.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GloboDelivery.Persistence.Migrations
 {
     [DbContext(typeof(GloboDeliveryDbContext))]
-    partial class GloboDeliveryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231030204314_AddDepartureAndArrivalDatesToDeliveryAddresses")]
+    partial class AddDepartureAndArrivalDatesToDeliveryAddresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,8 +74,14 @@ namespace GloboDelivery.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("CapacityTaken")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");

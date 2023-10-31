@@ -7,19 +7,19 @@ using System.Text.Json;
 
 namespace GloboDelivery.API.Controllers
 {
-    [Route("api/deliveries/{DeliveryId}/addresses")]
+    [Route("api/deliveries/{DeliveryId}/deliveryaddresses")]
     [ApiController]
-    public class DeliveryAddresses : ControllerBase
+    public class DeliveryAddressesController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public DeliveryAddresses(IMediator mediator)
+        public DeliveryAddressesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet(Name = nameof(GetDeliveryAddresses))]
-        public async Task<ActionResult<IReadOnlyList<AddressDto>>> GetDeliveryAddresses([FromRoute] int DeliveryId, int pageNumber, int pageSize)
+        public async Task<ActionResult<IReadOnlyList<DeliveryAddressListingDto>>> GetDeliveryAddresses([FromRoute] int DeliveryId, int pageNumber, int pageSize)
         {
             var addresses = await _mediator.Send(new GetDeliveryAddressesQuery() { DeliveryId = DeliveryId, PageNumber = pageNumber, PageSize = pageSize });
 

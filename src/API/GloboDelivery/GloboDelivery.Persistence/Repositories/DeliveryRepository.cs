@@ -15,10 +15,10 @@ namespace GloboDelivery.Persistence.Repositories
             return await _dbSet.Include(d => d.DeliveryAddresses).Where(d => d.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<PagedList<Address>?> GetPagedDeliveryAddressesAsync(int id, int pageNumber, int pageSize)
+        public async Task<PagedList<DeliveryAddress>?> GetPagedDeliveryAddressesAsync(int id, int pageNumber, int pageSize)
         {
-            var addresses =  _dbSet.Where(d => d.Id == id).SelectMany(d => d.DeliveryAddresses).Select(da => da.Address);
-            return await PagedList<Address>.CreateAsync(addresses, pageNumber, pageSize);
+            var addresses = _dbSet.Where(d => d.Id == id).SelectMany(d => d.DeliveryAddresses).Include(da => da.Address).Select(da => da);
+            return await PagedList<DeliveryAddress>.CreateAsync(addresses, pageNumber, pageSize);
         }
 
         public async Task<VanInfo?> GetDeliveryVanInfoAsync(int id)
