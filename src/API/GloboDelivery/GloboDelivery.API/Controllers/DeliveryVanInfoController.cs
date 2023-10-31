@@ -7,11 +7,11 @@ namespace GloboDelivery.API.Controllers
 {
     [Route("api/deliveries/{DeliveryId}/vaninfos")]
     [ApiController]
-    public class DeliveryVanInfo : ControllerBase
+    public class DeliveryVanInfoController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public DeliveryVanInfo(IMediator mediator)
+        public DeliveryVanInfoController(IMediator mediator)
         {
             _mediator = mediator;
         }
