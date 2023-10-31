@@ -11,8 +11,6 @@ namespace GloboDelivery.Persistence.Data.EntityTypeConfigurations
             builder.HasKey(d => d.Id);
 
             builder.Property(d => d.Price).IsRequired();
-            builder.Property(d => d.DepartureDate).IsRequired();
-            builder.Property(d => d.ArrivalDate).IsRequired();
             builder.Property(d => d.IsAvailable).IsRequired();
             builder.Property(d => d.CapacityTaken).IsRequired();
 

@@ -71,14 +71,8 @@ namespace GloboDelivery.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("ArrivalDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("CapacityTaken")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -107,8 +101,14 @@ namespace GloboDelivery.Persistence.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("DeliveryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
