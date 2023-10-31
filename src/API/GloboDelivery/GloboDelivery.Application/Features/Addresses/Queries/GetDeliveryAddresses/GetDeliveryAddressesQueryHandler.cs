@@ -8,7 +8,7 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.Addresses.Queries.GetDeliveryAddresses
 {
-    public class GetDeliveryAddressesQueryHandler : IRequestHandler<GetDeliveryAddressesQuery, PagedList<AddressDto>>
+    public class GetDeliveryAddressesQueryHandler : IRequestHandler<GetDeliveryAddressesQuery, PagedList<DeliveryAddressListingDto>>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,14 +19,14 @@ namespace GloboDelivery.Application.Features.Addresses.Queries.GetDeliveryAddres
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PagedList<AddressDto>> Handle(GetDeliveryAddressesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<DeliveryAddressListingDto>> Handle(GetDeliveryAddressesQuery request, CancellationToken cancellationToken)
         {
             var deliveryAddresses = await _unitOfWork.DeliveryRepository.GetPagedDeliveryAddressesAsync(request.DeliveryId, request.PageNumber, request.PageSize);
 
             if (deliveryAddresses == null)
                 throw new NotFoundException(nameof(Delivery), request.DeliveryId);
 
-            return _mapper.Map<PagedList<AddressDto>>(deliveryAddresses);
+            return _mapper.Map<PagedList<DeliveryAddressListingDto>>(deliveryAddresses);
         }
     }
 }

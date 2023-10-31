@@ -5,7 +5,7 @@ using MediatR;
 
 namespace GloboDelivery.Application.Features.Addresses.Queries.GetDeliveryAddresses
 {
-    public class GetDeliveryAddressesQuery : PaginationModel, IRequest<PagedList<AddressDto>>
+    public class GetDeliveryAddressesQuery : PaginationModel, IRequest<PagedList<DeliveryAddressListingDto>>
     {
         public int DeliveryId { get; set; }
     }
