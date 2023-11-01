@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GloboDelivery.Application.Exceptions;
+using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 
@@ -20,6 +21,7 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 
             RuleFor(d => d.AddressesDates)
                 .Must(ai => ai.Count() <= 5).WithMessage("{PropertyName} should not exceed a maximum length of 5 elements.")
+                .Must(DuplicateAddressesPresent).WithMessage("Addresses should not have duplicates.")
                 .Must(DepartureDatesShouldBeGreaterThanCurrentDate).WithMessage("Departure date should be greater or equal to current datetime.")
                 .Must(ArrivalDatesShouldBeGreaterThanArrivalDates).WithMessage("Arrival date should be greater than departure date.");
 
@@ -27,7 +29,15 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
                 .MustAsync(CapacityTakenLessOrEqualToVanCapacity).WithMessage("CapacityTaken should be less or equal to Capacity of Van.");
         }
 
-        private bool DepartureDatesShouldBeGreaterThanCurrentDate(IEnumerable<AddressDate> addressDates)
+        private bool DuplicateAddressesPresent(IEnumerable<DeliveryAddressManipulationDto> addressDates)
+        {
+            if (addressDates.Count() != addressDates.DistinctBy(ad => ad.AddressId).Count())
+                return false;
+
+            return true;
+        }
+
+        private bool DepartureDatesShouldBeGreaterThanCurrentDate(IEnumerable<DeliveryAddressManipulationDto> addressDates)
         {
             foreach (var addressDate in addressDates)
             {
@@ -38,7 +48,7 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
             return true;
         }
 
-        private bool ArrivalDatesShouldBeGreaterThanArrivalDates(IEnumerable<AddressDate> addressDates)
+        private bool ArrivalDatesShouldBeGreaterThanArrivalDates(IEnumerable<DeliveryAddressManipulationDto> addressDates)
         {
             foreach (var addressDate in addressDates)
             {
