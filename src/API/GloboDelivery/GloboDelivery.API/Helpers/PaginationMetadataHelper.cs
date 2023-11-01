@@ -1,4 +1,5 @@
 ﻿using GloboDelivery.API.Models;
+using GloboDelivery.Application.Models;
 using GloboDelivery.Domain.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,8 @@ namespace GloboDelivery.API.Helpers
             Current
         }
 
-        public static PaginationMetadata CreatePaginationMetadata<T>(PagedList<T> entities, IUrlHelper urlHelper, string actionName)
+        public static PaginationMetadata CreatePaginationMetadata<TEntity, TParameters>(PagedList<TEntity> entities, IUrlHelper urlHelper, string actionName, TParameters? routeParameters = null) 
+            where TParameters : PaginationModel
         {
             return new PaginationMetadata
             {
@@ -21,38 +23,60 @@ namespace GloboDelivery.API.Helpers
                 PageSize = entities.PageSize,
                 CurrentPage = entities.CurrentPage,
                 TotalPages = entities.TotalPages,
-                CurrentPageLink = CreateResourceUri(entities, urlHelper, actionName, ResourceUriType.Current),
-                PreviousPageLink = entities.HasPrevious ? CreateResourceUri(entities, urlHelper, actionName, ResourceUriType.PreviousPage) : null,
-                NextPageLink = entities.HasNext ? CreateResourceUri(entities, urlHelper, actionName, ResourceUriType.NextPage) : null,
+                CurrentPageLink = CreateResourceUri(entities, urlHelper, actionName, routeParameters, ResourceUriType.Current),
+                PreviousPageLink = entities.HasPrevious ? CreateResourceUri(entities, urlHelper, actionName, routeParameters, ResourceUriType.PreviousPage) : null,
+                NextPageLink = entities.HasNext ? CreateResourceUri(entities, urlHelper, actionName, routeParameters, ResourceUriType.NextPage) : null,
             };
         }
 
-        private static string? CreateResourceUri<T>(PagedList<T> entities, IUrlHelper urlHelper, string actionName, ResourceUriType resourceUriType)
+        private static string? CreateResourceUri<TEntity, TParameters>(PagedList<TEntity> entities, IUrlHelper urlHelper, string actionName, TParameters? routeParameters, ResourceUriType resourceUriType)
+            where TParameters : PaginationModel
         {
             switch (resourceUriType)
             {
                 case ResourceUriType.PreviousPage:
-                    return urlHelper.Link(actionName,
-                    new
+                    if (routeParameters != null)
                     {
-                        pageNumber = entities.CurrentPage - 1,
-                        pageSize = entities.PageSize
-                    });
+                        routeParameters.PageNumber = entities.CurrentPage - 1;
+                        routeParameters.PageSize = entities.PageSize;
+                    }
+                    return urlHelper.Link(actionName,
+                         routeParameters != null ? 
+                         routeParameters : 
+                         new
+                         {
+                             PageNumber = entities.CurrentPage,
+                             PageSize = entities.PageSize
+                         });
                 case ResourceUriType.NextPage:
-                    return urlHelper.Link(actionName,
-                    new
+                    if (routeParameters != null)
                     {
-                        pageNumber = entities.CurrentPage + 1,
-                        pageSize = entities.PageSize
-                    });
+                        routeParameters.PageNumber = entities.CurrentPage + 1;
+                        routeParameters.PageSize = entities.PageSize;
+                    }
+                    return urlHelper.Link(actionName,
+                        routeParameters != null ?
+                        routeParameters :
+                        new
+                        {
+                            PageNumber = entities.CurrentPage + 1,
+                            PageSize = entities.PageSize
+                        });
                 case ResourceUriType.Current:
                 default:
-                    return urlHelper.Link(actionName,
-                    new
+                    if (routeParameters != null)
                     {
-                        pageNumber = entities.CurrentPage,
-                        pageSize = entities.PageSize
-                    });
+                        routeParameters.PageNumber = entities.CurrentPage;
+                        routeParameters.PageSize = entities.PageSize;
+                    }
+                    return urlHelper.Link(actionName,
+                        routeParameters != null ?
+                        routeParameters :
+                        new
+                        {
+                            PageNumber = entities.CurrentPage,
+                            PageSize = entities.PageSize
+                        });
             }
         }
     }
