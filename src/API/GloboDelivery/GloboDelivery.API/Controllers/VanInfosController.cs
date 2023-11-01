@@ -5,7 +5,6 @@ using GloboDelivery.Application.Features.VanInfos.Commands.UpdateVanInfo;
 using GloboDelivery.Application.Features.VanInfos.Queries.GetAllVanInfos;
 using GloboDelivery.Application.Features.VanInfos.Queries.GetVanInfoById;
 using GloboDelivery.Domain.Dtos;
-using GloboDelivery.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -24,12 +23,12 @@ namespace GloboDelivery.API.Controllers
         }
 
         [HttpGet(Name = nameof(GetVanInfos))]
-        public async Task<ActionResult<IReadOnlyList<VanInfoDto>>> GetVanInfos(int pageNumber, int pageSize)
+        public async Task<ActionResult<IReadOnlyList<VanInfoDto>>> GetVanInfos([FromQuery] GetAllVanInfosQuery query)
         {
-            var vanInfos = await _mediator.Send(new GetAllVanInfosQuery() { PageNumber = pageNumber, PageSize = pageSize });
+            var vanInfos = await _mediator.Send(query);
 
             Response.Headers.Add("X-Pagination",
-                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(vanInfos, Url, nameof(GetVanInfos))));
+                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(vanInfos, Url, nameof(GetVanInfos), query)));
 
             return Ok(vanInfos);
         }

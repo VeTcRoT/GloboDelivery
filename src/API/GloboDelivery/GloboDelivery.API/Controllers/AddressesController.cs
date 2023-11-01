@@ -24,12 +24,12 @@ namespace GloboDelivery.API.Controllers
         }
 
         [HttpGet(Name = nameof(GetAllAddresses))]
-        public async Task<ActionResult<IReadOnlyList<AddressDto>>> GetAllAddresses(int pageNumber, int pageSize)
+        public async Task<ActionResult<IReadOnlyList<AddressDto>>> GetAllAddresses([FromQuery] GetAllAddressesQuery query)
         {
-            var addresses = await _mediator.Send(new GetAllAddressesQuery() { PageNumber = pageNumber, PageSize = pageSize });
+            var addresses = await _mediator.Send(query);
 
             Response.Headers.Add("X-Pagination",
-                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(addresses, Url, nameof(GetAllAddresses))));
+                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(addresses, Url, nameof(GetAllAddresses), query)));
 
             return Ok(addresses);
         }
