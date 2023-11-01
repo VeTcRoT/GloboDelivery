@@ -4,8 +4,6 @@ using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Application.Features.Addresses.Commands.CreateAddress;
 using GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress;
 using GloboDelivery.Domain.Helpers;
-using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
-using GloboDelivery.Application.Features.Addresses.Queries.GetDeliveryAddresses;
 
 namespace GloboDelivery.Application.MappingProfiles
 {
