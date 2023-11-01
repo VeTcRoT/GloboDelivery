@@ -3,6 +3,7 @@ using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
 using GloboDelivery.Application.Features.Deliveries.Commands.DeleteDelivery;
 using GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery;
 using GloboDelivery.Application.Features.Deliveries.Queries.GetAllDeliveries;
+using GloboDelivery.Application.Features.Deliveries.Queries.GetDeliveriesByCondition;
 using GloboDelivery.Application.Features.Deliveries.Queries.GetDeliveryById;
 using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
@@ -24,12 +25,12 @@ namespace GloboDelivery.API.Controllers
         }
 
         [HttpGet(Name = nameof(GetAllDeliveries))]
-        public async Task<ActionResult<IReadOnlyList<DeliveryDto>>> GetAllDeliveries(int pageNumber, int pageSize)
+        public async Task<ActionResult<IReadOnlyList<DeliveryDto>>> GetAllDeliveries([FromQuery] GetAllDeliveriesQuery query)
         {
-            var deliveries = await _mediator.Send(new GetAllDeliveriesQuery() { PageNumber = pageNumber, PageSize = pageSize });
+            var deliveries = await _mediator.Send(query);
 
             Response.Headers.Add("X-Pagination",
-                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(deliveries, Url, nameof(GetAllDeliveries))));
+                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(deliveries, Url, nameof(GetAllDeliveries), query)));
 
             return Ok(deliveries);
         }
@@ -40,6 +41,17 @@ namespace GloboDelivery.API.Controllers
             var delivery = await _mediator.Send(query);
 
             return Ok(delivery);
+        }
+
+        [HttpGet("getdeliveriesbycondition", Name = nameof(GetDeliveriesByCondition))]
+        public async Task<ActionResult<IReadOnlyCollection<FullDeliveryDto>>> GetDeliveriesByCondition([FromQuery] GetDeliveriesByConditionQuery query)
+        {
+            var deliveries = await _mediator.Send(query);
+
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(PaginationMetadataHelper.CreatePaginationMetadata(deliveries, Url, nameof(GetDeliveriesByCondition), query)));
+
+            return Ok(deliveries);
         }
 
         [HttpPost]

@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using GloboDelivery.Application.Exceptions;
-using GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery;
 using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
@@ -22,11 +21,20 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.UpdateDelivery
 
             RuleFor(d => d.AddressesDates)
                 .Must(ai => ai.Count() <= 5).WithMessage("{PropertyName} should not exceed a maximum length of 5 elements.")
+                .Must(DuplicateAddressesPresent).WithMessage("Addresses should not have duplicates.")
                 .Must(DepartureDatesShouldBeGreaterThanCurrentDate).WithMessage("Departure date should be greater or equal to current datetime.")
                 .Must(ArrivalDatesShouldBeGreaterThanArrivalDates).WithMessage("Arrival date should be greater than departure date.");
 
             RuleFor(d => d)
                 .MustAsync(CapacityTakenLessOrEqualToVanCapacity).WithMessage("CapacityTaken should be less or equal to Capacity of Van.");
+        }
+
+        private bool DuplicateAddressesPresent(IEnumerable<DeliveryAddressManipulationDto> addressDates)
+        {
+            if (addressDates.Count() != addressDates.DistinctBy(ad => ad.AddressId).Count())
+                return false;
+
+            return true;
         }
 
         private bool DepartureDatesShouldBeGreaterThanCurrentDate(IEnumerable<DeliveryAddressManipulationDto> addressDates)

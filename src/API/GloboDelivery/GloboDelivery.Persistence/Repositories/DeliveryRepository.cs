@@ -25,5 +25,22 @@ namespace GloboDelivery.Persistence.Repositories
         {
             return await _dbSet.Where(d => d.Id == id).Include(d => d.VanInfo).Select(d => d.VanInfo).FirstOrDefaultAsync();
         }
+
+        public async Task<PagedList<Delivery>?> GetPagedDeliveryAddressesByConditionAsync(int pageNumber, int pageSize, decimal minCapacity, DateTime departureDate, DateTime arrivalDate, string departureCountry, string departureCity, string arrivalCountry, string arrivalCity)
+        {
+            var deliveries = _dbSet
+                .Include(d => d.VanInfo)
+                .Include(d => d.DeliveryAddresses).ThenInclude(da => da.Address)
+                .Where(d =>
+                    d.VanInfo.Capacity - d.CapacityTaken >= minCapacity &&
+                    d.DeliveryAddresses.Where(da =>
+                        (da.DepartureDate.Date == departureDate.Date && da.Address.Country == departureCountry && da.Address.City == departureCity) ||
+                        (da.ArrivalDate.Date == arrivalDate.Date && da.Address.Country == arrivalCountry && da.Address.City == arrivalCity)
+                    ).Count() == 2
+                );
+             
+            return await PagedList<Delivery>.CreateAsync(deliveries, pageNumber, pageSize);
+        }
+
     }
 }

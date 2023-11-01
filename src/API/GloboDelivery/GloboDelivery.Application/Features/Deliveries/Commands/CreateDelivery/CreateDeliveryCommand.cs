@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using GloboDelivery.Domain.Dtos;
+using MediatR;
 
 namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
 {
@@ -8,8 +9,6 @@ namespace GloboDelivery.Application.Features.Deliveries.Commands.CreateDelivery
         public bool IsAvailable { get; set; }
         public decimal CapacityTaken { get; set; }
         public int VanInfoId { get; set; }
-        public IEnumerable<AddressDate> AddressesDates { get; set; } = new List<AddressDate>();
+        public IEnumerable<DeliveryAddressManipulationDto> AddressesDates { get; set; } = new List<DeliveryAddressManipulationDto>();
     }
-
-    public record AddressDate(int AddressId, DateTime DepartureDate, DateTime ArrivalDate);
 }
