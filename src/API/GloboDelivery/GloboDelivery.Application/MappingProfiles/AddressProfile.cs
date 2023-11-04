@@ -4,6 +4,7 @@ using GloboDelivery.Domain.Dtos;
 using GloboDelivery.Application.Features.Addresses.Commands.CreateAddress;
 using GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress;
 using GloboDelivery.Domain.Helpers;
+using SmartyStreets.USStreetApi;
 
 namespace GloboDelivery.Application.MappingProfiles
 {
@@ -11,9 +12,23 @@ namespace GloboDelivery.Application.MappingProfiles
     {
         public AddressProfile()
         {
-            CreateMap<CreateAddressCommand, Address>();
+            CreateMap<Candidate, Address>()
+                .ForMember(
+                    dest => dest.AddressLine,
+                    opt => opt.MapFrom(src => src.DeliveryLine1))
+                .ForMember(
+                    dest => dest.SuiteNumber,
+                    opt => opt.MapFrom(src => src.Components.SecondaryNumber))
+                .ForMember(
+                    dest => dest.AdministrativeArea,
+                    opt => opt.MapFrom(src => src.Components.State))
+                .ForMember(
+                    dest => dest.City,
+                    opt => opt.MapFrom(src => src.Components.CityName))
+                .ForMember(
+                    dest => dest.PostalCode,
+                    opt => opt.MapFrom(src => src.Components.ZipCode));
             CreateMap<Address, AddressDto>();
-            CreateMap<UpdateAddressCommand, Address>();
             CreateMap<Address, DeliveryAddressListingDto>();
             CreateMap<DeliveryAddress, DeliveryAddressListingDto>()
                 .ForMember(
