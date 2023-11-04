@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GloboDelivery.Infrastructure\GloboDelivery.Infrastructure.csproj" />
     <ProjectReference Include="..\GloboDelivery.Persistence\GloboDelivery.Persistence.csproj" />
   </ItemGroup>
 

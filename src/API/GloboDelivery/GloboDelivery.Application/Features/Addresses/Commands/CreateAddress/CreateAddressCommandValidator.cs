@@ -18,7 +18,7 @@ namespace GloboDelivery.Application.Features.Addresses.Commands.CreateAddress
 
             RuleFor(a => a.AdministrativeArea)
                 .NotNull().WithMessage("{PropertyName} should not be null.")
-                .MinimumLength(5).WithMessage("{PropertyName} length should be greater or equal to 5.")
+                .MinimumLength(2).WithMessage("{PropertyName} length should be greater or equal to 2.")
                 .MaximumLength(20).WithMessage("{PropertyName} length should be less or equal to 20.");
 
             RuleFor(a => a.AddressLine)
@@ -31,7 +31,7 @@ namespace GloboDelivery.Application.Features.Addresses.Commands.CreateAddress
 
             RuleFor(a => a.PostalCode)
                 .NotNull().WithMessage("{PropertyName} should not be null.")
-                .MinimumLength(7).WithMessage("{PropertyName} length should be greater or equal to 7.")
+                .MinimumLength(5).WithMessage("{PropertyName} length should be greater or equal to 5.")
                 .MaximumLength(25).WithMessage("{PropertyName} length should be less or equal to 25.");
         }
     }

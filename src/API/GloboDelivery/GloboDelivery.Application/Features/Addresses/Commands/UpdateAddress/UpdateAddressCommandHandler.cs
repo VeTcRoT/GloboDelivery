@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using GloboDelivery.Application.Exceptions;
+using GloboDelivery.Application.Services.Infrastructure;
 using GloboDelivery.Domain.Entities;
 using GloboDelivery.Domain.Interfaces;
 using MediatR;
@@ -13,12 +14,18 @@ namespace GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IValidator<UpdateAddressCommand> _validator;
+        private readonly IAddressValidationService _addressValidationService;
 
-        public UpdateAddressCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IValidator<UpdateAddressCommand> validator)
+        public UpdateAddressCommandHandler(
+            IMapper mapper, 
+            IUnitOfWork unitOfWork, 
+            IValidator<UpdateAddressCommand> validator, 
+            IAddressValidationService addressValidationService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _validator = validator;
+            _addressValidationService = addressValidationService;
         }
 
         public async Task Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
@@ -33,7 +40,9 @@ namespace GloboDelivery.Application.Features.Addresses.Commands.UpdateAddress
             if (addressToUpdate == null)
                 throw new NotFoundException(nameof(Address), request.Id);
 
-            _mapper.Map(request, addressToUpdate);
+            var addressValidationResult = _addressValidationService.ValidateAddress(request);
+
+            _mapper.Map(addressValidationResult, addressToUpdate);
 
             await _unitOfWork.SaveChangesAsync();
         }
