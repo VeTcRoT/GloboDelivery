@@ -1,5 +1,6 @@
 ﻿using GloboDelivery.API.Middlewares;
 using GloboDelivery.Application;
+using GloboDelivery.Infrastructure;
 using GloboDelivery.Persistence;
 
 namespace GloboDelivery.API
@@ -12,6 +13,7 @@ namespace GloboDelivery.API
 
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
