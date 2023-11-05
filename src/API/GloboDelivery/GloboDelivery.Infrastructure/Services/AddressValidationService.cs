@@ -1,6 +1,7 @@
 ﻿using GloboDelivery.Application.Exceptions;
 using GloboDelivery.Application.Services.Infrastructure;
 using GloboDelivery.Domain.Dtos;
+using GloboDelivery.Infrastructure.Interfaces.Services;
 using SmartyStreets.USStreetApi;
 
 namespace GloboDelivery.Infrastructure.Services
