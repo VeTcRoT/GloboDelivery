@@ -20,6 +20,7 @@ namespace GloboDelivery.IdentityServer.Data.DbInitializer
             if (_roleManager.FindByNameAsync(Configuration.Admin).Result == null)
             {
                 _roleManager.CreateAsync(new IdentityRole(Configuration.Admin)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(Configuration.Manager)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(Configuration.Customer)).GetAwaiter().GetResult();
             }
             else
@@ -38,7 +39,6 @@ namespace GloboDelivery.IdentityServer.Data.DbInitializer
 
             var adminClaims = _userManager.AddClaimsAsync(adminUser, new Claim[]
             {
-                new Claim(JwtClaimTypes.Name, adminUser.UserName),
                 new Claim(JwtClaimTypes.Role, Configuration.Admin)
             }).Result;
 
@@ -55,8 +55,7 @@ namespace GloboDelivery.IdentityServer.Data.DbInitializer
 
             var managerClaims = _userManager.AddClaimsAsync(managerUser, new Claim[]
             {
-                new Claim(JwtClaimTypes.Name, managerUser.UserName),
-                new Claim(JwtClaimTypes.Role, Configuration.Customer)
+                new Claim(JwtClaimTypes.Role, Configuration.Manager)
             }).Result;
 
             var customerUser = new IdentityUser
@@ -72,7 +71,6 @@ namespace GloboDelivery.IdentityServer.Data.DbInitializer
 
             var customerClaims = _userManager.AddClaimsAsync(customerUser, new Claim[]
             {
-                new Claim(JwtClaimTypes.Name, customerUser.UserName),
                 new Claim(JwtClaimTypes.Role, Configuration.Customer)
             }).Result;
         }
