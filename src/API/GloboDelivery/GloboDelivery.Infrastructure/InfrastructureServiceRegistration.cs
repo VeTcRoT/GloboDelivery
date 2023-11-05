@@ -1,4 +1,5 @@
 ﻿using GloboDelivery.Application.Services.Infrastructure;
+using GloboDelivery.Infrastructure.Interfaces.Services;
 using GloboDelivery.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
