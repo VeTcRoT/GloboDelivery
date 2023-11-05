@@ -1,3 +1,4 @@
+using GloboDelivery.IdentityServer;
 using GloboDelivery.IdentityServer.Data;
 using GloboDelivery.IdentityServer.Data.DbInitializer;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +17,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
 builder.Services.AddIdentityServer()
-    .AddAspNetIdentity<IdentityUser>();
+    .AddInMemoryIdentityResources(Configuration.IdentityResources)
+    .AddInMemoryApiResources(Configuration.ApiResources)
+    .AddInMemoryApiScopes(Configuration.ApiScopes)
+    .AddInMemoryClients(Configuration.Clients)
+    .AddAspNetIdentity<IdentityUser>()
+    .AddDeveloperSigningCredential();
 
 var app = builder.Build();
 
