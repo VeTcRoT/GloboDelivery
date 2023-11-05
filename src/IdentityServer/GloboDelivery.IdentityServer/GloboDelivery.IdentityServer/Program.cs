@@ -15,7 +15,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
-builder.Services.AddIdentityServer();
+builder.Services.AddIdentityServer()
+    .AddAspNetIdentity<IdentityUser>();
 
 var app = builder.Build();
 
