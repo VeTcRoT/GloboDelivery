@@ -34,8 +34,8 @@ namespace GloboDelivery.Persistence.Repositories
                 .Where(d =>
                     d.VanInfo.Capacity - d.CapacityTaken >= minCapacity &&
                     d.DeliveryAddresses.Where(da =>
-                        (da.DepartureDate.Date == departureDate.Date && da.Address.Country == departureCountry && da.Address.City == departureCity) ||
-                        (da.ArrivalDate.Date == arrivalDate.Date && da.Address.Country == arrivalCountry && da.Address.City == arrivalCity)
+                        (da.DepartureDate.Date >= departureDate.Date && da.Address.Country == departureCountry && da.Address.City == departureCity) ||
+                        (da.ArrivalDate.Date <= arrivalDate.Date && da.Address.Country == arrivalCountry && da.Address.City == arrivalCity)
                     ).Count() == 2
                 );
              
